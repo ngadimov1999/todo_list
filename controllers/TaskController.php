@@ -118,9 +118,9 @@ class TaskController extends Controller
     /**
      * Action add task.
      *
-     * @return string
+     * @return Response | string
      */
-    public function actionAddTask() : Response | string
+    public function actionAddTask()
     {
         $model = new AddTaskForm();
 
@@ -160,9 +160,9 @@ class TaskController extends Controller
     /**
      * Action update task by task id.
      *
-     * @return string
+     * @return Response | string
      */
-    public function actionUpdateTask() : Response | string
+    public function actionUpdateTask()
     {
         $model = new AddTaskForm();
         $id = Yii::$app->request->get('id');
@@ -207,13 +207,18 @@ class TaskController extends Controller
     /**
      * Action delete task by task id.
      *
-     * @return string
+     * @return Response | string
      */
-    public function actionDeleteTask(): Response | string
+    public function actionDeleteTask()
     {
         $id = Yii::$app->request->get('id');
         $taskService = new TaskService();
-        $taskService->deleteTask($id);
+        try{
+            $taskService->deleteTask($id);
+            Yii::$app->session->setFlash('success', 'task deleted');
+        } catch(Exception $e) {
+            Yii::$app->session->setFlash('error', "Task deleted");
+        }
 
         Yii::$app->session->setFlash('success', 'task deleted');
         return $this->redirect(['task/index']);
@@ -222,9 +227,9 @@ class TaskController extends Controller
     /**
      * Action add comment to task by task id.
      *
-     * @return string
+     * @return Response | string
      */
-    public function actionAddComment(): Response | string
+    public function actionAddComment()
     {
         $id = Yii::$app->request->get('id');
         $text = Yii::$app->request->get('text');
@@ -242,7 +247,12 @@ class TaskController extends Controller
         return $this->redirect(["task/full-task/" . $id]);
     }
 
-    public function actionAddLabor(): Response | string
+    /**
+     * Action add labor to task by task id.
+     *
+     * @return Response | string
+     */
+    public function actionAddLabor()
     {
         $id = Yii::$app->request->get('id');
         $time = Yii::$app->request->get('time');

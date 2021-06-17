@@ -97,7 +97,10 @@ class TaskService
     {
         $task = $this->findById($id);
         if (isset($task)) {
-            $task->delete();
+            $deleted = $task->delete();
+            if (!$deleted) {
+                throw new \Exception("Task doesn't delete");
+            }
         }
     }
 
