@@ -18,6 +18,7 @@ use app\services\TypeService;
 use app\services\UserService;
 use Yii;
 use yii\web\Controller;
+use yii\web\Response;
 
 class TaskController extends Controller
 {
@@ -119,7 +120,7 @@ class TaskController extends Controller
      *
      * @return string
      */
-    public function actionAddTask()
+    public function actionAddTask() : Response | string
     {
         $model = new AddTaskForm();
 
@@ -161,7 +162,7 @@ class TaskController extends Controller
      *
      * @return string
      */
-    public function actionUpdateTask()
+    public function actionUpdateTask() : Response | string
     {
         $model = new AddTaskForm();
         $id = Yii::$app->request->get('id');
@@ -208,7 +209,7 @@ class TaskController extends Controller
      *
      * @return string
      */
-    public function actionDeleteTask()
+    public function actionDeleteTask(): Response | string
     {
         $id = Yii::$app->request->get('id');
         $taskService = new TaskService();
@@ -223,7 +224,7 @@ class TaskController extends Controller
      *
      * @return string
      */
-    public function actionAddComment()
+    public function actionAddComment(): Response | string
     {
         $id = Yii::$app->request->get('id');
         $text = Yii::$app->request->get('text');
@@ -241,7 +242,7 @@ class TaskController extends Controller
         return $this->redirect(["task/full-task/" . $id]);
     }
 
-    public function actionAddLabor()
+    public function actionAddLabor(): Response | string
     {
         $id = Yii::$app->request->get('id');
         $time = Yii::$app->request->get('time');
