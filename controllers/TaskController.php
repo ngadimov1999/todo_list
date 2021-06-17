@@ -183,7 +183,7 @@ class TaskController extends Controller
             );
 
             Yii::$app->session->setFlash('success', 'task updated');
-            return $this->redirect(['task/full-task?id=' . $id]);
+            return $this->redirect(['task/full-task/' . $id]);
         }
 
         $types = Type::find()->all();
@@ -238,7 +238,7 @@ class TaskController extends Controller
 
         Yii::$app->session->setFlash('success', 'comment added');
 
-        return $this->redirect(["task/full-task?id=" . $id]);
+        return $this->redirect(["task/full-task/" . $id]);
     }
 
     public function actionAddLabor()
@@ -257,6 +257,6 @@ class TaskController extends Controller
 
         Yii::$app->session->setFlash('success', 'labor added');
 
-        return $this->redirect(["task/full-task?id=" . $id]);
+        return $this->redirect(["task/full-task/" . $id]);
     }
 }
