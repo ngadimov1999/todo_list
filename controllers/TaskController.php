@@ -220,7 +220,6 @@ class TaskController extends Controller
             Yii::$app->session->setFlash('error', "Task deleted");
         }
 
-        Yii::$app->session->setFlash('success', 'task deleted');
         return $this->redirect(['task/index']);
     }
 
